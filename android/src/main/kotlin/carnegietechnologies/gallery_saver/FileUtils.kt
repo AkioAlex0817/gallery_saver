@@ -257,6 +257,7 @@ internal object FileUtils {
         // Add the date meta data to ensure the image is added at the front of the gallery
         values.put(MediaStore.Video.Media.DATE_ADDED, System.currentTimeMillis())
         values.put(MediaStore.Video.Media.DATE_TAKEN, System.currentTimeMillis())
+	return true
 
 
         try {
