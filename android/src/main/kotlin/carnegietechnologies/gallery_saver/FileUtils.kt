@@ -258,32 +258,6 @@ internal object FileUtils {
         values.put(MediaStore.Video.Media.DATE_ADDED, System.currentTimeMillis())
         values.put(MediaStore.Video.Media.DATE_TAKEN, System.currentTimeMillis())
 	return true
-
-
-        try {
-            val url = contentResolver.insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, values)
-            inputStream = FileInputStream(inputFile)
-            if (url != null) {
-                outputStream = contentResolver.openOutputStream(url)
-                val buffer = ByteArray(bufferSize)
-                inputStream.use {
-                    outputStream?.use {
-                        var len = inputStream.read(buffer)
-                        while (len != EOF) {
-                            outputStream.write(buffer, 0, len)
-                            len = inputStream.read(buffer)
-                        }
-                    }
-                }
-            }
-        } catch (fnfE: FileNotFoundException) {
-            Log.e("GallerySaver", fnfE.message)
-            return false
-        } catch (e: Exception) {
-            Log.e("GallerySaver", e.message)
-            return false
-        }
-        return true
     }
 
     private fun getAlbumFolderPath(folderName: String?, mediaType: MediaType): String {
